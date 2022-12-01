@@ -1,6 +1,6 @@
 ﻿let rec sumElves (itemcalories:string list, sum:int) =
     match itemcalories with
-    | [] -> []
+    | [] -> [sum]
     | h::t ->
         if h = "" then
             sum::(sumElves (t, 0))
