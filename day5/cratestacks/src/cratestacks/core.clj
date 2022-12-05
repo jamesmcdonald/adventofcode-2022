@@ -48,13 +48,7 @@
             (re-matches #"move (\d+) from (\d+) to (\d+)" line)]
     (let [crates (new Integer crates) source (new Integer source) dest (new Integer dest)]
       ;(println (str "move2 " crates " from " source " to " dest " stacks: " stacks))
-      (let [stacks (loop [stacks stacks counter crates]
-        (if (= counter 0)
-          stacks
-          (recur (into stacks
-                       {dest (cons (nth (get stacks source) (dec counter)) (get stacks dest))})
-                 (dec counter))))]
-        (into stacks {source (drop crates (get stacks source))})))
+        (into stacks {dest (into (get stacks dest) (reverse (take crates (get stacks source)))) source (drop crates (get stacks source))}))
     stacks))
 
 (defn parser
